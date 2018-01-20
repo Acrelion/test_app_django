@@ -22,6 +22,17 @@ class Recipes(models.Model):
     def __str__(self):
         return self.title
 
+    """
+    We can define custom methods
+        ( Example: Get number of ingredients via ingredients_set.count() )
+    and return it.
+    We need to add a short description to the method.
+    So if the method is named: get_num_ingredients, the short description
+    should be gives as:
+    get_num_ingredients.short_description = "Ingredients Count"
+    Note: Don't forget to add it to the list_display @ admin.
+    """
+
     class Meta:
         verbose_name_plural = 'Recipes'
         ordering = ('modified_on',)
