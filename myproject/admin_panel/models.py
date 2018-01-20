@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 class Recipes(models.Model):
@@ -15,9 +16,12 @@ class Recipes(models.Model):
     description = models.TextField(max_length=2000, null=True, blank=True)
     created_on = models.DateTimeField(auto_now_add=True, auto_now=False)
     modified_on = models.DateTimeField(auto_now_add=False, auto_now=True)
-    published_status = models.CharField(max_length=50, choices=PUBLISHED_CHOICES, default=PUBLISHED_CHOICES[0])
+    published_status = models.CharField(max_length=50, choices=PUBLISHED_CHOICES,
+                                        default=PUBLISHED_CHOICES[0])
     #author_f - current user as a foreign key
     #author_c - current user as a CharField
+    author_f = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+                                 null=True, blank=True)
 
     def __str__(self):
         return self.title

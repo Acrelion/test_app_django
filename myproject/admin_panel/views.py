@@ -22,9 +22,9 @@ class RecipesList(APIView):
 
 class RecipesDetail(APIView):
     def get_object(self, pk):
-        try: 
+        try:
             return Recipes.objects.get(pk=pk)
-        except Recipes.DoesNotExist: 
+        except Recipes.DoesNotExist:
             raise Http404
 
     def get(self, request, pk):
@@ -33,13 +33,13 @@ class RecipesDetail(APIView):
         return Response(serializer.data)
 
     def put(self, request, pk):
-        recipe = self.get_object(pk) 
+        recipe = self.get_object(pk)
         serializer = RecipesSerializer(recipe, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
     def delete(self, request, pk):
         recipe = self.get_object(pk)
         recipe.delete()
